@@ -1,0 +1,61 @@
+<! --
+Title: kw_easy_upgrade.html
+Author: Kareem Washington
+Date Last Modified: 11/30/2020
+-->
+
+<html>
+<head>
+<link href="/pathtocss/kw_easy_upgrade.css" rel="stylesheet">
+<title>EasyUpgrade</title>
+</head>
+<body>
+<h1>EasyUpgrade</h1>
+<div class="gray_container">
+<form action="/pathtoscripts/kw_easy_upgrade.py" method="post">
+
+    <label for="serv_name">Enter a server name:</label>
+    <input type="text" id="serv_name" name="serv_name">
+    <br><br>
+
+    <label for="create_chg">Create a CHG?</label>
+    <select id="create_chg" name="create_chg">
+        <option value="No">No</option>
+        <option value="Yes">Yes</option>
+    </select>
+    <br><br>
+
+    <label for="chg_network_id">Select your network ID:</label>
+    <select id="chg_network_id" name="chg_network_id">
+        <option value="d99999">C87303 (John D.)</option>
+        <option value="d00000">D24271 (Jane D.)</option>
+        <option value="d12345">D12345 (Kareem W.)</option>
+    </select>
+    <br><br>
+
+    <label for="chg_date">Select the CHG date:</label>
+    <input type="date" id="chg_date" name="chg_date" value="2021-06-15">
+    <br><br>
+
+    <label for="chg_start_time">Select the CHG start time:</label>
+    <input type="time" id="chg_start_time" name="chg_start_time" value="12:00">
+    <br><br>
+
+    <label for="chg_end_time">Select the CHG end time:</label>
+    <input type="time" id="chg_end_time" name="chg_end_time" value="16:00">
+    <br><br>
+
+    <label for="testing">Just testing?</label>
+    <select id="testing" name="testing">
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+    <br><br>
+
+<input type = "submit" value = "Submit" />
+
+</form>
+</div>
+<p>Written by Kareem Washington of My-IT-Group</p>
+</body>
+</html>
