@@ -1,4 +1,4 @@
-# easyupgrade
+# EasyUpgrade
 
 Disruptive patching requires coordination of numerous teams.
 
