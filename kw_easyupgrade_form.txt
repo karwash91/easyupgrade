@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html><head>
+<link href="http://kw_upgrade_inventory.css" rel="stylesheet">
+<title>EasyUpgrade</title>
+</head>
+<body>
+<h1>EasyUpgrade Results</h1>
+<div class="gray_container">
+
+{% if 'Yes' in retired_alert %}
+<h2>Alert: <span class="span_style_red">{{ cust_name }}</span></h2>
+{% else %}
+<h2>LOB: <span>{{ cust_name }}</span></h2>
+{% endif %}
+
+{% if 'Yes' in no_match_alert %}
+<h2>Alert: <span class="span_style_red">No servers in the {{ next_env_to_upgrade }} environment matching '{{ cust_name }}' need upgrading.</span></h2>
+{% endif %}
+
+{% if 'Yes' in testing_chg_alert %}
+{% if 'No' in no_match_alert %}
+<h2>Alert: <span class="span_style_green">{{ chg_request_number }} has been created in the TEST ServiceNow instance.</span></h2>
+{% endif %}
+{% endif %}
+
+<hr>
+
+{% if 'Yes' in create_chg_alert %}
+{% if 'No' in no_match_alert %}
+<p>Please review <a href="{{ chg_request_link }}" target="_blank">{{ chg_request_number }}</a> scheduled for {{ chg_date_str }} from {{ start_time_str }}-{{ end_time_str }}.</p>
+<br>
+{% endif %}
+{% endif %}
+
+<p><span class="span_style_green">This is a sample e-mail. An e-mail was not sent.</span></p>
+<p>To: {{ email_to }}</p>
+<p>CC: {{ email_from }}</p>
+<p>Subject: {{ email_subject }}</p>
+<hr>
+<p>{{ email_greeting }}</p>
+<table id="myTable"><tbody>
+    <tr>
+        <th>Name</th>
+        <th>Current OS</th>
+        <th>Environment</th>
+        <th>Upgrade OS to</th>
+        <th style="background-color:#f25022">Date / Time</th>
+    </tr>
+    {% for row in upgrade_table_html %}
+    <tr>
+        <td><span>{{ row.serv_name }}</span></td>
+        <td><span>{{ row.serv_curr_os }}</span></td>
+        <td><span class="{{ row.serv_env_span_style }}">{{ row.serv_env }}</span></td>
+        <td><span class="{{ row.latest_os_span_style }}">{{ row.latest_os }}</span></td>
+        <td><span></span></td>
+    </tr>
+    {% endfor %}
+</tbody></table>
+<br>
+<p>{{ email_ctask_heading }}</p>
+<table id="myTable"><tbody>
+    <tr>
+        <th>TASK</th>
+        <th>Relevant Servers</th>
+        <th style="background-color:#f25022">Assignment Group</th>
+        <th style="background-color:#f25022">Assigned to</th>
+    </tr>
+    {% for row in ctask_table_html %}
+    <tr>
+        <td><span>{{ row.task }}</span></td>
+        <td><span>{{ row.relevant_servs }}</span></td>
+        <td><span>{{ row.assignment_group }}</span></td>
+        <td><span></span></td>
+    </tr>
+    {% endfor %}
+</tbody></table>
+<br>
+</div>
+
+<br>
+<br>
+<form action="{{ start_over_link }}"><input type="submit" class="input_style_box_easy_upgrade" value="Start Over"></form>
+<p>{{ email_sig }}</p>
+</body></html>

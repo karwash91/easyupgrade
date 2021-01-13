@@ -1,0 +1,159 @@
+# Title: kw_easyupgrade_conf.yml
+# Author: Kareem Washington
+# Date Last Modified: 01/11/2020
+# Disruptive patching requires coordination of numerous teams.
+# This application eases these efforts by: grouping servers by customer, identifying out-of-date software components, and vulnerability items.
+# Additionally, ServiceNow change requests can be generated based on these details, with corresponding tasks assigned to necessary teams.
+# Data about servers is read from a csv, processed by the python code, and generates: an html page with details about the server group / a corresponding ServiceNow change request.
+
+vers:
+  latest_os: "9.x"
+  supported_os:
+    - "8.x"
+    - "7.x"
+dynamic_ctasks:
+  is_java5:
+    no_action:
+      - "no_java5"
+    yes_action:
+      - "Java5"
+    ctask:
+      short_description: "Remediate Java 5"
+      group: "ITSM-MyGroup"
+  is_java6:
+    no_action:
+      - "no_java6"
+    yes_action:
+      - "Java6"
+    ctask:
+      short_description: "Remediate Java 6"
+      group: "ITSM-MyGroup"
+  is_vormetric:
+    no_action:
+      - "9.x"
+    yes_action:
+      - "0.x"
+    ctask:
+      short_description: "Upgrade Vormetric"
+      group: "ITSM-MyGroup"
+  is_centrify:
+    no_action:
+      - "9.x"
+    yes_action:
+      - "0.x"
+      - "1.x"
+      - "2.x"
+    ctask:
+      short_description: "Upgrade Centrify"
+      group: "ITSM-MyGroup"
+  is_gpfs:
+    no_action:
+      - "9.x"
+    yes_action:
+      - "0.x"
+      - "1.x"
+    ctask:
+      short_description: "Upgrade GPFS"
+      group: "ITSM-MyGroup"
+  is_oracle:
+    no_action:
+      - "no_oracle"
+    yes_action:
+      - "yes_oracle"
+    ctask:
+      short_description: "Stop, Start, and Validate Oracle Databases"
+      group: "ITSM-MyGroup"
+  is_db2:
+    no_action:
+      - "no_db2"
+    yes_action:
+      - "yes_db2"
+    ctask:
+      short_description: "Stop, Start, and Validate DB2 Databases"
+      group: "ITSM-MyGroup"
+  is_guardium:
+    no_action:
+      - "no_guardium"
+    yes_action:
+      - "yes_guardium"
+    ctask:
+      short_description: "Upgrade Guardium"
+      group: "ITSM-MyGroup"
+  is_powerha:
+    no_action:
+      - "no_powerha"
+    yes_action:
+      - "9.x"
+      - "8.x"
+    ctask:
+      short_description: "Stop and Start PowerHA"
+      group: "ITSM-MyGroup"
+static_ctasks:
+  upgrade_os:
+    ctask:
+      short_description: "Upgrade OS"
+      group: "ITSM-MyGroup"
+  stop_start_apps:
+    ctask:
+      short_description: "Stop and Start Applications"
+      group: ""
+  validate_apps:
+    ctask:
+      short_description: "Validate Applications"
+      group: ""
+env:
+  tdc:
+    - "TRAINING"
+    - "SANDBOX"
+    - "TEST"
+    - "DEVELOPMENT"
+    - "QUALITY ASSURANCE"
+    - "USER ACCEPTANCE"
+    - "STAGING"
+    - "UNKNOWN"
+  prod:
+    - "PRODUCTION"
+  dr:
+    - "DISASTER RECOVERY"
+dirs:
+  scripts: "/opt/freeware/apache/share/cgi-bin/kw_upgrade_inventory/scripts/"
+  csvs: "/opt/freeware/apache/share/cgi-bin/kw_upgrade_inventory/csvs/"
+  confs: "/opt/freeware/apache/share/cgi-bin/kw_upgrade_inventory/confs/"
+files:
+  easyupgrade_csv: "kw_upgrade_inventory.csv"
+snow:
+  prod:
+    instance: "prod"
+  test:
+    instance: "test"
+  user: "user"
+  password: "pass"
+  category: "Software"
+  assignment_group: "ITSM-MyGroup"
+  type: "Comprehensive"
+  u_related_release: "2021-OTHER"
+  u_subcategory: "Technology"
+  standard_plan: "http://upgrade.docx"
+  u_test_results: "Server(s) was upgraded successfully to %s."
+  u_estimated_downtime: "1970-01-01 09:00:00"
+  u_backout_duration: "1970-01-01 05:30:00"
+  short_description: "Upgrade %s %s %s Servers to %s *Disruptive*"
+  change_request_api: "/table/change_request"
+  affected_api: "/table/task_ci"
+  task_api: "/table/change_task"
+html:
+  content_type: "Content-type:text/html\r\n\r\n"
+  email_from: "ITSM-MyGroup@MyCompany.com"
+  email_sub: "OS Upgrades Needed for: %s Servers"
+  email_greeting: "Hello,<br><br>We need to carry out disruptive OS upgrades on the servers listed below.<br><br>We can upgrade all of %s next. Can you provide a four-hour outage window?"
+  email_sig: "Written by Kareem Washington of ITSM-MyGroup"
+  email_review: "Please review <a href=\"%s\" target=\"_blank\">%s</a> scheduled for %s from %s-%s."
+  email_ctask_heading: "Also, please confirm CTASKs below:"
+  email_subject: "OS Upgrades Needed for: %s Servers"
+  start_over_link: "http://kw_upgrade_inventory.html"
+  span_style_green: "span_style_green"
+  span_style_purple: "span_style_purple"
+  span_style_orange: "span_style_orange"
+  span_style_red: "span_style_red"
+  span_style_gray: "span_style_gray"
+  span_style_default: "span_style_default"
