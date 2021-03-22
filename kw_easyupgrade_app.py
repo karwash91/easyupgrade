@@ -2,7 +2,7 @@
 
 # Title: kw_easyupgrade_app.py
 # Author: Kareem Washington
-# Date Last Modified: 01/11/2020
+# Date Last Modified: 03/11/2021
 # Disruptive patching requires coordination between several teams within an enterprise organization.
 # This application eases these efforts by: grouping servers by customer, identifying unsupported software components, and vulnerability items.
 # Additionally, by using the pysnow module, ServiceNow change requests can be generated based on this data, with appropriate tasks assigned to corresponding teams.
@@ -124,7 +124,7 @@ def get_to_be_upgraded(next_env_to_upgrade, inventory_dict):
                 }
     return to_be_upgraded_dict
 
-# create change request function
+# create a change request function
 def create_chg_request(conn, chg_network_id, chg_start_time, chg_end_time, cmdb_ci, chg_short_description, chg_description, u_role, u_test_results):
     table = conn.resource(api_path = conf['snow']['change_request_api'])
     payload = {
